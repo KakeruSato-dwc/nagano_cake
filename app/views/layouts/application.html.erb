@@ -6,11 +6,102 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-brand border border-dark">
+        <div class="container">
+          <%= link_to(root_path, class: "navbar-brand") do %>
+            <span>LOGO</span>
+          <% end %>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expand="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              <% if admin_signed_in? %>
+                <li>
+                  <%= link_to("/admin/sign_out", method: :delete, class: "navbar-brand") do %>
+                    <button>
+                      <span>ログアウト</span>
+                    </button>
+                  <% end %>
+                </li>
+              <% elsif customer_signed_in? %>
+                <li class="mr-5 my-auto">
+                  <span>
+                    ようこそ、<%= current_customer.last_name %>さん!
+                  </span>
+                </li>
+                <li>
+                  <%= link_to(customer_my_page_path, class: "navbar-brand") do %>
+                    <button>
+                      <span>マイページ</span>
+                    </button>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to(items_path, class: "navbar-brand") do %>
+                    <button>
+                      <span>商品一覧</span>
+                    </button>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to(cart_items_path, class: "navbar-brand") do %>
+                    <button>
+                      <span>カート</span>
+                    </button>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to("/customers/sign_out", method: :delete, class: "navbar-brand") do %>
+                    <button>
+                      <span>ログアウト</span>
+                    </button>
+                  <% end %>
+                </li>
+              <% else %>
+                <li>
+                  <%= link_to(about_path, class: "navbar-brand") do %>
+                    <button>
+                      <span>About</span>
+                    </button>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to(items_path, class: "navbar-brand") do %>
+                    <button>
+                      <span>商品一覧</span>
+                    </button>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to(new_customer_registration_path, class: "navbar-brand") do %>
+                    <button>
+                      <span>新規登録</span>
+                    </button>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to(new_customer_session_path, class: "navbar-brand") do %>
+                    <button>
+                      <span>ログイン</span>
+                    </button>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>    
+    
+    <main>
+      <%= yield %>
+    </main>
   </body>
 </html>

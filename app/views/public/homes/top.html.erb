@@ -1,0 +1,7 @@
+<h1>Customer Top</h1>
+<% if customer_signed_in? %>
+  <%= link_to("/customers/sign_out", method: :delete, class: "mt-3") do %>
+    <p>ログアウト</p>
+  <% end %>
+  <%= link_to "退会", customer_confirm_unsubscribe_path %>
+<% end %>
