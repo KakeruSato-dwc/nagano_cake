@@ -24,6 +24,25 @@
             <ul class="navbar-nav ml-auto">
               <% if admin_signed_in? %>
                 <li>
+                  <%= link_to(admin_items_path, class: "navbar-brand") do %>
+                    <button>
+                      <span>商品一覧</span>
+                    </button>
+                  <% end %>
+                </li>
+                  <%= link_to(admin_customers_path, class: "navbar-brand") do %>
+                    <button>
+                      <span>会員一覧</span>
+                    </button>
+                  <% end %>
+                </li>
+                  <%= link_to(admin_root_path, class: "navbar-brand") do %>
+                    <button>
+                      <span>注文履歴一覧</span>
+                    </button>
+                  <% end %>
+                </li>
+                <li>
                   <%= link_to("/admin/sign_out", method: :delete, class: "navbar-brand") do %>
                     <button>
                       <span>ログアウト</span>

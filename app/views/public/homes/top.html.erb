@@ -5,3 +5,8 @@
   <% end %>
   <%= link_to "退会", customer_confirm_unsubscribe_path %>
 <% end %>
+<% @customers_first.each do |customer| %> 
+  <p>
+    <%= customer.email %>
+  </p>
+<% end %>
