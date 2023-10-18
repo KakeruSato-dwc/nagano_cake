@@ -1,2 +1,44 @@
-<h1>Admin::Items#new</h1>
-<p>Find me in app/views/admin/items/new.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <h2 class="bg-light text-center my-4">商品新規登録</h2>
+    </div>
+  </div>
+
+  <%= form_with model: @item, url: admin_items_path do |f| %>
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-9 ml-auto">
+        <table class="table table-borderless">
+          <tbody>
+            <tr>
+              <th>商品画像</th>
+              <th class="field"><%= f.file_field :image, accept: "image/*" %></th>
+            </tr>
+            <tr>
+              <th>商品名</th>
+              <th class="field"><%= f.text_field :name %></th>
+            </tr>
+            <tr>
+              <th>商品説明</th>
+              <th><%= f.text_area :introduction, size: "40x10" %></th>
+            </tr>
+            <tr>
+              <th>税抜価格</th>
+              <th class="field">
+                <%= f.text_field :price %>
+                <%= f.label :price, "円" %>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-10 mx-auto text-center">
+        <%= f.submit "新規登録", class: "btn btn-success"; %>
+      </div>
+    </div>
+  <% end %>
+</div>
