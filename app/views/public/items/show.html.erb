@@ -15,6 +15,14 @@
           ¥ <%= (@item.price * 110 / 100).to_s(:delimited) %>
         </li>
       </ul>
+      <div class="mt-4 ml-5">
+        <%= form_with model: @cart_item, url: "/cart_items", method: :post do |f| %>
+          <%= f.hidden_field :item_id, :value => @item.id %>
+          <%= f.label :amount, "個数" %>
+          <%= f.select :amount, *[1..10] %>
+          <%= f.submit "カートに入れる", class: "btn btn-success ml-4"; %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
