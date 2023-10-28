@@ -58,9 +58,15 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row mt-4">
     <div class="col-10 mx-auto text-center">
-      <%= link_to "注文情報入力に進む", new_order_path, class: "btn btn-success mt-4"; %>
+      <%= link_to(new_order_path) do %>
+        <% if @cart_items.exists? %>
+          <button class="btn btn-success">注文情報入力に進む</button>
+        <% else %>
+          <button disabled class="btn btn-success">注文情報入力に進む</button>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>

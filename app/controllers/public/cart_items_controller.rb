@@ -4,21 +4,20 @@ class Public::CartItemsController < ApplicationController
   def create
     @cart_item = current_customer.cart_items.new(cart_item_params)
     @cart_item.customer_id = current_customer.id
-    @cart_items = current_customer.cart_items.all
-    @cart_items.each do |cart_item|
-      if cart_item.item_id == @cart_item.item_id
-        new_amount = cart_item.amount.to_i + @cart_item.amount.to_i
-        cart_item.update(amount: new_amount)
-        @cart_item.delete
-      else
-        @cart_item.save
-      end
+    @cart_items = current_customer.cart_items
+    if @cart_items.find_by(item_id: @cart_item.item_id)
+      cart_item = @cart_items.find_by(item_id: @cart_item.item_id)
+      new_amount = cart_item.amount.to_i + @cart_item.amount.to_i
+      cart_item.update(amount: new_amount)
+      @cart_item.destroy
+    else
+      @cart_item.save
     end
     redirect_to cart_items_path
   end
 
   def index
-    @cart_items = current_customer.cart_items.all
+    @cart_items = current_customer.cart_items
     @total_price = @cart_items.inject(0) {|sum, item| sum + item.subtotal}
   end
 
