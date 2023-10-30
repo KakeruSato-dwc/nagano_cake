@@ -30,7 +30,7 @@ class Public::OrdersController < ApplicationController
     @order.customer_id = current_customer.id
     @order.shipping_fee = 800
     @order.save
-    
+
     current_customer.cart_items.each do |cart_item|
       @order_detail = OrderDetail.new
       @order_detail.item_id = cart_item.item_id
@@ -39,19 +39,21 @@ class Public::OrdersController < ApplicationController
       @order_detail.amount = cart_item.amount
       @order_detail.save
     end
-    
+
     current_customer.cart_items.destroy_all
     redirect_to "/orders/complete"
   end
 
   def index
+    @orders = current_customer.orders.order(created_at: :desc)
   end
 
   def show
+    @order = Order.find(params[:id])
   end
-  
+
   private
-  
+
   def order_params
     params.require(:order).permit(:postal_code, :address, :name, :payment_method, :total_payment)
   end

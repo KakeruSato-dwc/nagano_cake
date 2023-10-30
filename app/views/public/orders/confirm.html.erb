@@ -4,8 +4,8 @@
       <h3 class="bg-light text-center my-4">注文情報確認</h3>
     </div>
   </div>
-  
-  
+
+
   <div class="row">
     <div class="col-8">
       <table class="table table-bordered">
@@ -33,7 +33,7 @@
         </tbody>
       </table>
     </div>
-    
+
     <div class="col-3 ml-auto">
       <table class="table table-bordered">
         <tr>
@@ -51,7 +51,7 @@
       </table>
     </div>
   </div>
-  
+
   <div class="row mt-4">
     <div class="col-2">
       <h4><strong>支払方法</strong></h4>
@@ -60,7 +60,7 @@
       <h5><%= @order.payment_method_i18n %></h5>
     </div>
   </div>
-  
+
   <div class="row mt-4">
     <div class="col-2">
       <h4><strong>お届け先</strong></h4>
@@ -72,7 +72,7 @@
       </h5>
     </div>
   </div>
-  
+
   <div class="row">
     <div class="col-10 mx-auto text-center">
       <%= form_with model: @order, url: "/orders", method: :post do |f| %>

@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    get 'orders/show'
+    resources :orders, only: [:show]
   end
   namespace :admin do
     resources :customers, only: [:index, :show, :edit, :update]
@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   scope module: 'public' do
     resources :orders, only: [:new, :create, :index, :show]
   end
-  
+
   delete "/cart_items/destroy_all" => "public/cart_items#destroy_all", as: "destroy_all_cart_items"
   scope module: 'public' do
     resources :cart_items, only: [:create, :index, :update, :destroy]

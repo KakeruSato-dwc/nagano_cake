@@ -1,6 +1,39 @@
-<h1>Admin Top</h1>
-<% if admin_signed_in? %>
-  <%= link_to("/admin/sign_out", method: :delete, class: "mt-3") do %>
-    <p>ログアウト</p>
-  <% end %>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <h2 class="bg-light text-center my-4">注文履歴一覧</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-10 mx-auto">
+      <table class="table border-bottom">
+        <thead class="bg-light">
+          <tr>
+            <th>購入日時</th>
+            <th>購入者</th>
+            <th>注文個数</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @orders.each do |order| %>
+            <tr>
+              <td>
+                <%= link_to(admin_order_path(order.id), style: "color: black; text-decoration: underline") do %>
+                  <%= order.created_at.to_s(:datetime_jp) %>
+                <% end %>
+              </td>
+              <td><%= order.customer.last_name %><%= order.customer.first_name %></td>
+              <% @total_amount = 0 %>
+              <% order.order_details.each do |order_detail| %>
+                <% @total_amount += order_detail.amount %>
+              <% end %>
+              <td><%= @total_amount %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @orders %>
+    </div>
+  </div>
+</div>
