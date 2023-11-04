@@ -38,10 +38,10 @@ class Public::SessionsController < Devise::SessionsController
   def customer_state
     @customer = Customer.find_by(email: params[:customer][:email])
     return if !@customer
-    if @customer.valid_password?(params[:customer][:password]) && (@customer.is_active == true)
-      return
-    else
+    if @customer.valid_password?(params[:customer][:password]) && (@customer.is_active == false)
       redirect_to new_customer_registration_path
+    else
+      return
     end
   end
 

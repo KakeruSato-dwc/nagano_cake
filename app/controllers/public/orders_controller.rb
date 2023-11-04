@@ -1,5 +1,7 @@
 class Public::OrdersController < ApplicationController
   before_action :authenticate_customer!
+  before_action :cart_items_exist, only: [:new]
+  before_action :is_matching_login_customer, only: [:show]
 
   def new
     @order = Order.new
@@ -57,4 +59,19 @@ class Public::OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:postal_code, :address, :name, :payment_method, :total_payment)
   end
+
+  def cart_items_exist
+    cart_items = current_customer.cart_items
+    unless cart_items.exists?
+      redirect_to "/cart_items"
+    end
+  end
+
+  def is_matching_login_customer
+    order = Order.find(params[:id])
+    unless order.customer_id == current_customer.id
+      redirect_to "/customers/my_page"
+    end
+  end
+
 end

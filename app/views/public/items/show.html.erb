@@ -11,8 +11,8 @@
         <li class="mb-5">
           <%= @item.introduction %>
         </li>
-        <li class="h3">
-          ¥ <%= (@item.price * 110 / 100).to_s(:delimited) %>
+        <li>
+          <span class="h3">¥ <%= (@item.price * 110 / 100).to_s(:delimited) %></span> <span>(税込)</span>
         </li>
       </ul>
       <div class="mt-4 ml-5">
