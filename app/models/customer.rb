@@ -6,11 +6,13 @@ class Customer < ApplicationRecord
 
   has_many :cart_items, dependent: :destroy
   has_many :orders, dependent: :destroy
+  
+  katakana = /\A[\p{katakana}\u{30fc}]+\z/
 
   validates :last_name, presence: true
   validates :first_name, presence: true
-  validates :last_name_kana, presence: true
-  validates :first_name_kana, presence: true
+  validates :last_name_kana, presence: true, format: {with: katakana, message: 'はカタカナで入力して下さい。'}
+  validates :first_name_kana, presence: true, format: {with: katakana, message: 'はカタカナで入力して下さい。'}
   validates :postal_code, presence: true
   validates :address, presence: true
   validates :telephone_number, presence: true
